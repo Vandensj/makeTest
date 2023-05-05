@@ -1,1 +1,15 @@
-   
+COMP=g++
+TARGET=tree.exe
+HEADERS=$(wildcard *.h)
+SRCS=$(wildcard *.cpp)
+OBJECTS=$(SRCS:.cpp=.o)
+
+$(TARGET): $(OBJECTS)
+	$(COMP) $^ -o $@
+	echo $^ > compiled.txt
+
+%.o: %.cpp $(HEADERS)
+	$(COMP) -c $<
+
+clean: $(OBJECTS) $(TARGET) compiled.txt
+	rm $^
